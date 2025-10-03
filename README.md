@@ -24,4 +24,16 @@ npm run dev
 pip install flask flask-cors
 python app.py
 
+## Week 2 — Day 2
+**Goal:** Create reusable components and pass data via props.
+
+### ✅ Tasks Completed
+- Created `TaskCard` component using MUI Paper + Typography.  
+- Rendered a list of dummy tasks in Home via props.  
+- Demonstrated parent → child data flow in React.  
+
+### Run Frontend
+```bash
+cd frontend
+npm run dev
 
