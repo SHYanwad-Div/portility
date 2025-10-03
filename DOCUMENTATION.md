@@ -40,3 +40,29 @@ feat: week2 day1 - scaffold React app with MUI, NavBar + Home
 
 ### Commit
 feat: week2 day2 - added TaskCard component and rendered dummy tasks
+# 📌 DOCUMENTATION.md (Day 3 Entry)
+
+```markdown
+# Portility — Week 2 Day 3
+
+**Date:** Oct 1, 2025  
+**Goal:** State & Hooks (useState, useEffect), Forms + MUI
+
+### ✅ Tasks Completed
+- Created `TaskForm` component (controlled inputs).  
+- Managed tasks using `useState`.  
+- Used `useEffect` to log state changes.  
+- Added form validation for required fields.  
+- Updated Home page to render new tasks dynamically.
+
+### ❓ Reflection
+1. **Data flow:** User types → state updates → component re-renders → effect runs.  
+2. **useEffect:** Runs after render; dependencies control execution; cleanup prevents memory leaks.  
+3. **Controlled vs uncontrolled:** Controlled inputs tied to React state.  
+4. **Event handling:** `onChange` updates state; `onSubmit` prevents default refresh.  
+5. **MUI:** TextField and Button provide theming, styling, and validation helpers.
+
+### Commit
+feat: week2 day3 - added TaskForm with state, useEffect, and validation
+
+Copy code

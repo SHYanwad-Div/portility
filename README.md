@@ -37,3 +37,17 @@ python app.py
 cd frontend
 npm run dev
 
+## Week 2 — Day 3
+**Goal:** Manage state with hooks, create controlled forms with MUI, and validate inputs.
+
+### ✅ Tasks Completed
+- Added `TaskForm` component with MUI TextFields and Button.  
+- Managed task list state with `useState`.  
+- Logged task updates using `useEffect`.  
+- Validated required fields on form submission.  
+- Dynamically rendered tasks using TaskCard component.
+
+### Run Frontend
+```bash
+cd frontend
+npm run dev
