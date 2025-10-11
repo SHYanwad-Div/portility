@@ -66,3 +66,16 @@ feat: week2 day2 - added TaskCard component and rendered dummy tasks
 feat: week2 day3 - added TaskForm with state, useEffect, and validation
 
 Copy code
+# Portility — Week 2 Day 4
+
+**Date:** Oct 3, 2025  
+**Goal:** Add routing (Home/Add Task/About), navigation, save tasks to localStorage, theme toggle.
+
+### ✅ Tasks Completed
+- Added `react-router-dom` and routes for `/`, `/add`, `/about`.  
+- NavBar updated with icons + theme toggle.  
+- Tasks persisted to `localStorage` via `useLocalStorage` hook.  
+- Add Task page saves tasks and redirects to Home.
+
+### Commit
+feat: week2 day4 - add routing, localStorage, NavBar icons & theme toggle

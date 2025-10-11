@@ -51,3 +51,17 @@ npm run dev
 ```bash
 cd frontend
 npm run dev
+# Week 2 — Day 4 (Oct 3, 2025)
+
+**Goal:** Implement routing, persist state, and polish UI
+
+**Tasks Completed:**
+- Added **React Router v6** for pages: Home (`/`), Add Task (`/add`), About (`/about`)
+- Updated **NavBar** for navigation using MUI `Button` + `NavLink`
+- Persisted tasks and theme mode using **localStorage** (`useLocalStorage` hook)
+- Layout polished using **MUI Box** and flex (`minHeight: 100vh`, responsive padding)
+
+**Notes:**
+- Routing allows navigation without full page reload
+- State changes automatically update `localStorage`
+- Layout is now full-screen, responsive, and ready for UI polish
