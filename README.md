@@ -65,3 +65,41 @@ npm run dev
 - Routing allows navigation without full page reload
 - State changes automatically update `localStorage`
 - Layout is now full-screen, responsive, and ready for UI polish
+## week 2 day 5 (oct 4,2025)
+**Goal:**Polish and refine the SPA built with React + Vite + Material UI by adding visual enhancements, search, and theme toggle.
+
+### Completed Features
+- **Search / Filter UI:** Allows users to search tasks or projects dynamically.
+- **Light / Dark Theme Toggle:** Implemented using MUI Theme Provider + localStorage persistence.
+- **Header & Footer:** Added custom Silkscreen font for unique branding.
+- **Hero Section:** Added `TopHero` component with aesthetic typography and accent colors.
+- **Task Cards:** Improved readability and visibility in both themes.
+- **Responsive Layout:** Centered card grid with consistent padding and spacing.
+
+### Tools & Technologies
+- React + Vite  
+- Material UI  
+- Custom Typography (Silkscreen Font)  
+- LocalStorage Persistence  
+- JavaScript ES6  
+
+### How to Run
+```bash
+cd frontend
+npm install
+npm run dev
+## week 3 day 1(oct 6,2025)
+backend run:
+python.py--- http://127.0.0.1:5000
+open terminal & run:
+##Check ping:
+curl http://127.0.0.1:5000/api/ping
+# -> {"ok":true,"msg":"pong"}
+##Get tasks (initially empty or sample):
+curl http://127.0.0.1:5000/api/tasks
+##Add a task:
+curl -X POST http://127.0.0.1:5000/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Interview Practice","description":"Prepare endpoints and CRUD"}'
+##Confirm it’s stored:
+curl http://127.0.0.1:5000/api/tasks

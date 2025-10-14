@@ -1,4 +1,3 @@
-// src/components/TaskCard.jsx
 import React from "react";
 import { Paper, Typography, Box, useTheme } from "@mui/material";
 
@@ -18,9 +17,7 @@ export default function TaskCard({ title, description }) {
         justifyContent: "center",
         textAlign: "center",
         transition: "transform 240ms ease, box-shadow 240ms ease",
-        bgcolor: isDark
-          ? "linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))"
-          : "#fff",
+        bgcolor: isDark ? "transparent" : "#fff",
         border: `1px solid ${isDark ? "var(--card-border-dark)" : "var(--card-border-light)"}`,
         boxShadow: isDark ? "0 10px 30px rgba(2,6,23,0.5)" : "0 6px 18px rgba(12,20,28,0.04)",
         "&:hover": {
@@ -33,6 +30,7 @@ export default function TaskCard({ title, description }) {
     >
       <Box>
         <Typography
+          className="silkscreen"
           sx={{ fontWeight: 600, color: isDark ? "#e6f7f9" : "rgba(4,20,36,0.95)" }}
           variant="h6"
         >

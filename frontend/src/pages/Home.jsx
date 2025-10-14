@@ -4,17 +4,10 @@ import { Box, Grid, TextField, IconButton, useTheme } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import TaskCard from "../components/TaskCard";
 import TopHero from "../components/TopHero";
-import useLocalStorage from "../hooks/useLocalStorage";
 
-export default function Home() {
+export default function Home({ tasks = [] }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
-
-  const [tasks] = useLocalStorage("tasks", [
-    { title: "Learn React", description: "Complete React tutorial" },
-    { title: "Build Portfolio", description: "Create SPA portfolio" },
-    { title: "Use MUI", description: "Style with Material UI" },
-  ]);
 
   const [q, setQ] = useState("");
 

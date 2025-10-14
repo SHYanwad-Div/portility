@@ -1,4 +1,3 @@
-// src/components/TopHero.jsx
 import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 
@@ -7,14 +6,20 @@ export default function TopHero({ subtitle = "Your developer tasks & projects" }
   const isDark = theme.palette.mode === "dark";
 
   return (
-    <Box className="hero">
+    <Box className="hero" sx={{ mb: 2 }}>
       <Box className="hero-inner">
         <Box>
           <Typography
-            className="hero-title"
+            className="silkscreen"
             sx={{
               color: isDark ? "rgba(223,255,255,0.95)" : "rgba(0,55,55,0.95)",
               fontSize: { xs: "1.6rem", md: "2rem" },
+              "&:hover": {
+                textShadow: isDark
+                  ? "0 0 10px rgba(0,230,246,0.8)"
+                  : "0 0 8px rgba(0,188,212,0.6)",
+                transition: "all 0.3s ease",
+              },
             }}
           >
             Portility
@@ -33,7 +38,6 @@ export default function TopHero({ subtitle = "Your developer tasks & projects" }
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          {/* Accent circular badge for the brand (optional) */}
           <Box
             sx={{
               width: 44,

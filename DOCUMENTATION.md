@@ -79,3 +79,33 @@ Copy code
 
 ### Commit
 feat: week2 day4 - add routing, localStorage, NavBar icons & theme toggle
+### 📘 **DOCUMENTATION.md — Week 2 Day 5**
+```markdown
+# Week 2 Day 5 — Reflection & Bonus Documentation
+
+### Objective
+Refine UI/UX, ensure responsive design, and finalize all core SPA features built in previous days.
+
+---
+
+### 
+
+---
+
+### Reflection / Learning Notes
+- Understood how **MUI Theme Provider** dynamically changes palette modes.
+- Practiced applying **Google Fonts** for cohesive design.
+- Learned that consistent color contrast improves accessibility.
+- Identified how component structure (NavBar → Routes → Footer) ensures clean layout.
+- Gained comfort with MUI sx props for quick design tweaks.
+
+---
+Enhancements Implemented
+| Feature | Description |
+|----------|--------------|
+| **Search Bar** | Added keyword search to filter task cards instantly. |
+| **Theme Toggle** | Implemented dark/light modes stored in localStorage. |
+| **Header & Footer** | Both styled with the Silkscreen font and accent colors. |
+| **Hero Section** | Introduced brand title “Portility” with hover glow effect. |
+| **Responsive Grid** | Centered cards, improved spacing for all screen sizes. |
+| **Color Tuning** | Enhanced contrast for readability in both themes. |
