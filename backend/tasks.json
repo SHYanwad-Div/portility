@@ -1,17 +1,31 @@
 [
   {
-    "id": 1,
-    "title": "need sleep",
-    "description": "its 3 am"
-  },
-  {
     "id": 2,
     "title": "Finish UI path VI",
-    "description": "assessment not available/"
+    "description": "assessment not available/",
+    "completed": false
   },
   {
-    "id": 3,
-    "title": "hello",
-    "description": "Hello,World!"
+    "id": 4,
+    "title": "parallel computing assignment",
+    "description": "complete 3 questions by 5pm"
+  },
+  {
+    "id": 5,
+    "title": "New",
+    "description": "desc",
+    "completed": false
+  },
+  {
+    "id": 6,
+    "title": "Build Flask API",
+    "description": "Connect with React frontend",
+    "completed": false
+  },
+  {
+    "id": 7,
+    "title": "Learn Flask",
+    "description": "Create backend API",
+    "completed": false
   }
 ]

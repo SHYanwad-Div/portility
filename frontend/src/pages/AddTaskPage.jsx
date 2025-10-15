@@ -1,43 +1,81 @@
 // src/pages/AddTaskPage.jsx
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
-import TaskForm from "../components/TaskForm";
+import React, { useState, useEffect } from "react";
+import { Box, TextField, Button, Typography } from "@mui/material";
+import { addTask, updateTask } from "../api";
+import { useNavigate, useParams } from "react-router-dom";
+import { getTasks } from "../api"; // used to pre-fill when editing (simple approach)
 
-export default function AddTaskPage({  setTasks }) {
+export default function AddTaskPage({ setTasks }) {
   const navigate = useNavigate();
+  const params = useParams(); // optional: if route is /edit/:id
+  const editingId = params?.id; // undefined when adding
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-  const addTask = async (task) => {
-    try {
-      // send to backend
-      const res = await fetch("http://127.0.0.1:5000/api/tasks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(task),
-      });
+  // If you want to support editing on /edit/:id, pre-fill fields
+  useEffect(() => {
+    if (!editingId) return;
+    (async () => {
+      const all = await getTasks();
+      const t = all.find((x) => String(x.id) === String(editingId));
+      if (t) {
+        setTitle(t.title || "");
+        setDescription(t.description || "");
+      } else {
+        alert("Task not found");
+        navigate("/");
+      }
+    })();
+  }, [editingId, navigate]);
 
-      const data = await res.json();
-      if (res.ok && data && data.ok) {
-        // append server-returned task (has id)
-        setTasks((prev) => (Array.isArray(prev) ? [...prev, data.task] : [data.task]));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!title.trim() || !description.trim()) {
+      alert("Please fill both fields");
+      return;
+    }
+
+    if (editingId) {
+      const updated = await updateTask(editingId, { title: title.trim(), description: description.trim() });
+      if (updated) {
+        // update list in parent (if provided) via re-fetch or setTasks
+        if (setTasks) setTasks((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
         navigate("/");
       } else {
-        // validation or server error
-        console.error("Failed to add task:", data);
-        alert(data.error || "Failed to add task (server error).");
+        alert("Failed to update");
       }
-    } catch (err) {
-      console.error("Add task request failed:", err);
-      alert("Could not reach server. Make sure backend is running.");
+    } else {
+      const created = await addTask({ title: title.trim(), description: description.trim(), completed: false });
+      if (created) {
+        if (setTasks) setTasks((prev) => [...prev, created]);
+        navigate("/");
+      } else {
+        alert("Failed to create");
+      }
     }
   };
 
   return (
-    <Box sx={{ px: { xs: 2, md: 4 }, py: 2 }}>
-      <Typography variant="h4" className="silkscreen" gutterBottom>
-        Add Task
+    <Box sx={{ maxWidth: 640, mx: "auto", px: 2, py: 3 }}>
+      <Typography variant="h5" gutterBottom className="silkscreen">
+        {editingId ? "Edit Task" : "Add Task"}
       </Typography>
-      <TaskForm addTask={addTask} />
+
+      <form onSubmit={handleSubmit}>
+        <TextField label="Title" fullWidth value={title} onChange={(e) => setTitle(e.target.value)} sx={{ mb: 2 }} />
+        <TextField
+          label="Description"
+          fullWidth
+          multiline
+          rows={4}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          sx={{ mb: 2 }}
+        />
+        <Button type="submit" variant="contained">
+          {editingId ? "Save changes" : "Add Task"}
+        </Button>
+      </form>
     </Box>
   );
 }

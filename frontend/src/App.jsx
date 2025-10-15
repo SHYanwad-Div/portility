@@ -9,78 +9,84 @@ import Home from "./pages/Home";
 import AddTaskPage from "./pages/AddTaskPage";
 import About from "./pages/About";
 import Footer from "./components/Footer";
+import { getTasks } from "./api";
 
 export default function App() {
-  // theme same as before
-  const [mode, setMode] = useState(() => {
-    try {
-      return localStorage.getItem("themeMode") || "dark";
-    } catch {
-      return "dark";
-    }
-  });
+  const [mode, setMode] = useState(() => localStorage.getItem("themeMode") || "dark");
+  const [tasks, setTasks] = useState([]);
+  const [loadingTasks, setLoadingTasks] = useState(true);
+  const [tasksError, setTasksError] = useState(null);
 
   useEffect(() => {
-  try {
-    localStorage.setItem("themeMode", mode);
-  } catch (error) {
-    // Option A: log a lightweight warning during development
-    // console.warn("Failed to persist themeMode:", error);
+    try {
+      localStorage.setItem("themeMode", mode);
+    } catch (e) {
+      // ignore localStorage write errors (e.g. private mode)
+      void e;
+    }
+  }, [mode]);
 
-    // Option B: explicitly ignore the error (keeps lint happy)
-    void error;
-  }
-}, [mode]);
+  // Load tasks from Flask API (with abort + error handling)
+  useEffect(() => {
+    const ac = new AbortController();
+    setLoadingTasks(true);
+    setTasksError(null);
+
+    (async () => {
+      try {
+        const data = await getTasks({ signal: ac.signal });
+        setTasks(Array.isArray(data) ? data : []);
+      } catch (err) {
+        if (err.name === "AbortError") return;
+        console.error("Failed to fetch tasks:", err);
+        setTasksError("Failed to load tasks");
+        setTasks([]); // fallback
+      } finally {
+        setLoadingTasks(false);
+      }
+    })();
+
+    return () => ac.abort();
+  }, []);
 
   const theme = useMemo(
     () =>
       createTheme({
-        palette: { mode, primary: { main: "#00bcd4" } },
-        typography: { button: { textTransform: "none", fontFamily: "Silkscreen, Inter, Roboto, sans-serif" } },
+        palette: {
+          mode,
+          primary: { main: "#00bcd4" },
+        },
+        typography: {
+          button: { textTransform: "none", fontFamily: "Silkscreen, Inter, Roboto, sans-serif" },
+        },
       }),
     [mode]
   );
 
-  // --------------------------
-  // Tasks state (from API)
-  // --------------------------
-  const [tasks, setTasks] = useState([]); // start empty, will fill from API
-  const [loadingTasks, setLoadingTasks] = useState(true);
-
-  useEffect(() => {
-    // fetch tasks on mount
-    async function fetchTasks() {
-      try {
-        setLoadingTasks(true);
-        const res = await fetch("http://127.0.0.1:5000/api/tasks");
-        const data = await res.json();
-        if (res.ok && data && data.ok) {
-          setTasks(Array.isArray(data.tasks) ? data.tasks : []);
-        } else {
-          console.error("Failed to load tasks:", data);
-          setTasks([]);
-        }
-      } catch (err) {
-        console.error("Error fetching tasks:", err);
-        setTasks([]);
-      } finally {
-        setLoadingTasks(false);
-      }
-    }
-
-    fetchTasks();
-  }, []); // run once on mount
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ minHeight: "100vh", width: "100%", display: "flex", flexDirection: "column", bgcolor: "background.default" }}>
+      <Box
+        sx={{
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          bgcolor: "background.default",
+        }}
+      >
         <NavBar mode={mode} setMode={setMode} />
 
         <Box component="main" sx={{ flex: 1, p: { xs: 2, md: 4 }, mt: 2 }}>
           <Routes>
-            <Route path="/" element={<Home tasks={tasks} loading={loadingTasks} />} />
-            <Route path="/add" element={<AddTaskPage tasks={tasks} setTasks={setTasks} />} />
+            {/* pass both tasks and setter so Home can update/delete locally */}
+            <Route
+              path="/"
+              element={<Home tasks={tasks} setTasks={setTasks} loading={loadingTasks} error={tasksError} />}
+            />
+            {/* AddTaskPage receives setTasks to append newly created tasks */}
+            <Route path="/add" element={<AddTaskPage setTasks={setTasks} />} />
+            <Route path="/edit/:id" element={<AddTaskPage setTasks={setTasks} />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </Box>

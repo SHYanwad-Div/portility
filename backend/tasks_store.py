@@ -37,3 +37,34 @@ def add_task(task):
         tasks.append(task_with_id)
         _write_file(tasks)
         return task_with_id
+def get_task(task_id):
+    with _lock:
+        tasks = _read_file()
+        for t in tasks:
+            if int(t.get("id")) == int(task_id):
+                return t
+        return None
+
+def update_task(task_id, new_data):
+    with _lock:
+        tasks = _read_file()
+        updated = None
+        for i, t in enumerate(tasks):
+            if int(t.get("id")) == int(task_id):
+                # update only provided fields (merge)
+                tasks[i] = {**t, **new_data, "id": t.get("id")}
+                updated = tasks[i]
+                break
+        if updated is not None:
+            _write_file(tasks)
+        return updated
+
+def delete_task(task_id):
+    with _lock:
+        tasks = _read_file()
+        for i, t in enumerate(tasks):
+            if int(t.get("id")) == int(task_id):
+                removed = tasks.pop(i)
+                _write_file(tasks)
+                return removed
+        return None
