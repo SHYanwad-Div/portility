@@ -103,3 +103,25 @@ curl -X POST http://127.0.0.1:5000/api/tasks \
   -d '{"title":"Interview Practice","description":"Prepare endpoints and CRUD"}'
 ##Confirm it’s stored:
 curl http://127.0.0.1:5000/api/tasks
+# Week 3 Day 2 — Flask API (PUT & DELETE)
+
+### 📅 Date: Oct 8, 2025  
+### 🎯 Goal:
+Implement and test **PUT** & **DELETE** endpoints in Flask for task updates and deletions.
+
+---
+
+## 🔧 Features
+- `PUT /api/tasks/<id>` → Update a task by ID  
+- `DELETE /api/tasks/<id>` → Delete a task by ID  
+- Handles invalid IDs and returns proper error codes  
+- Optional query filter: `/api/tasks?completed=true`
+
+---
+
+## 🧪 Test Commands
+```bash
+GET    http://127.0.0.1:5000/api/tasks
+POST   http://127.0.0.1:5000/api/tasks
+PUT    http://127.0.0.1:5000/api/tasks/1
+DELETE http://127.0.0.1:5000/api/tasks/1

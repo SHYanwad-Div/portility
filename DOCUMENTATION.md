@@ -109,3 +109,28 @@ Enhancements Implemented
 | **Hero Section** | Introduced brand title “Portility” with hover glow effect. |
 | **Responsive Grid** | Centered cards, improved spacing for all screen sizes. |
 | **Color Tuning** | Enhanced contrast for readability in both themes. |
+# Week 3 Day 2 — PUT & DELETE Endpoints
+
+### 🔹 PUT /api/tasks/<id>
+Updates a task using JSON data from the client.  
+Returns updated task or 404 if not found.
+
+### 🔹 DELETE /api/tasks/<id>
+Removes a task by ID.  
+Returns success message or 404 if task doesn’t exist.
+
+---
+
+### ⚙️ Status Codes
+- 200 → Success  
+- 400 → Invalid JSON / Missing fields  
+- 404 → Task not found  
+
+---
+
+### 🧠 Key Notes
+- **Path parameter:** `/api/tasks/1` → identifies a specific resource  
+- **Query parameter:** `/api/tasks?completed=true` → filters results  
+- Tested via **Postman** and **curl**
+
+---
