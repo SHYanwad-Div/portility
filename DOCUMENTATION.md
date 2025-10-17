@@ -134,3 +134,74 @@ Returns success message or 404 if task doesn’t exist.
 - Tested via **Postman** and **curl**
 
 ---
+
+---
+
+## 📘 **DOCUMENTATION.md (Week 3 Day 3)**
+
+```markdown
+# Documentation — Week 3 Day 3: Error Handling, Validation & CORS
+
+## 🔍 Overview
+This update focused on improving API reliability and integration with React frontend.
+
+## 🧱 Features Added
+1. **Error Handling**
+   - Custom handlers for:
+     - `400 Bad Request`
+     - `404 Not Found`
+     - `500 Internal Server Error`
+   - Ensures user-friendly and consistent error responses.
+
+2. **Input Validation**
+   - Checks for required fields (like `title`).
+   - Rejects invalid or malformed JSON requests.
+   - Returns descriptive messages with proper status codes.
+
+3. **CORS Configuration**
+   - Added `Flask-CORS`:
+     ```python
+     from flask_cors import CORS
+     CORS(app)
+     ```
+   - Allows frontend (React running on Vite port 5173) to access Flask API (port 5000).
+
+4. **Testing**
+   - Verified all flows via **Postman** and browser console.
+   - Tested failure cases:
+     - Missing JSON body → 400
+     - Invalid ID → 404
+     - Server crash simulation → 500
+
+## 🧩 Status Codes Used
+| Code | Meaning | When Returned |
+|------|----------|---------------|
+| 200 | OK | Successful request |
+| 201 | Created | Task created |
+| 400 | Bad Request | Invalid input / JSON |
+| 404 | Not Found | Task ID invalid |
+| 500 | Internal Server Error | Unhandled server error |
+
+## ⚙️ Frontend Integration
+React → Fetch API → Flask  
+Each request handles `ok` and `error` in JSON response:
+```js
+const res = await fetch("/api/tasks");
+const data = await res.json();
+if (!data.ok) alert(data.error);
+# Week 3 Day 4 Documentation
+
+## Versioning Overview
+- Added `/api/v1/` prefix to all routes.
+- Ensures backward compatibility when new versions are introduced.
+
+## API Test URLs
+- GET → `http://127.0.0.1:5000/api/v1/tasks`
+- POST → `http://127.0.0.1:5000/api/v1/tasks`
+- PUT → `http://127.0.0.1:5000/api/v1/tasks/<id>`
+- DELETE → `http://127.0.0.1:5000/api/v1/tasks/<id>`
+
+## Learning Points
+1. **OpenAPI/Swagger** helps generate interactive API docs.
+2. Versioning helps avoid breaking existing clients.
+3. Cloud deployments use environment variables for URLs & API keys.

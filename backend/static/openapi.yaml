@@ -1,0 +1,70 @@
+openapi: 3.0.1
+info:
+  title: Portility API
+  version: "1.0.0"
+  description: Tasks API for Portility (development)
+
+servers:
+  - url: http://127.0.0.1:5000/api/v1
+paths:
+  /tasks:
+    get:
+      summary: List tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      summary: Create task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ["title", "description"]
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                completed:
+                  type: boolean
+      responses:
+        '201':
+          description: Created
+  /tasks/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a task
+      responses:
+        '200': { description: OK }
+        '404': { description: Not Found }
+    put:
+      summary: Update a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { type: string }
+                description: { type: string }
+                completed: { type: boolean }
+      responses:
+        '200': { description: Updated }
+        '400': { description: Bad Request }
+    delete:
+      summary: Delete a task
+      responses:
+        '200': { description: Deleted }
+        '404': { description: Not Found }

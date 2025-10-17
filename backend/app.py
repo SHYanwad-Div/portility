@@ -1,94 +1,85 @@
 # backend/app.py
-from flask import Flask, jsonify, request
+import os
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
-from tasks_store import get_tasks, add_task, get_task, update_task, delete_task
+from flask_swagger_ui import get_swaggerui_blueprint
 
-app = Flask(__name__)
-CORS(app)  # dev only; restrict origins in prod
+# create app
+app = Flask(__name__, static_folder="static")
 
+# CORS: allow from environment OR allow all in dev
+cors_origins = os.getenv("CORS_ORIGINS")  # e.g. "http://localhost:5173"
+if cors_origins:
+    # allow specific origins (comma separated)
+    origins = [o.strip() for o in cors_origins.split(",")]
+    CORS(app, origins=origins)
+else:
+    # dev: allow all
+    CORS(app)
+
+# register blueprints (tasks blueprint should be defined in backend/tasks/routes.py)
+# tasks.routes should define: bp = Blueprint(..., url_prefix="/api/v1/tasks")
+try:
+    from tasks.routes import bp as tasks_bp
+    app.register_blueprint(tasks_bp)
+except Exception as e:
+    # If blueprint import fails, log to console - helpful during setup
+    app.logger.warning("Could not import tasks blueprint: %s", e)
+
+# Ping / health
 @app.get("/api/ping")
 def ping():
     return jsonify({"ok": True, "msg": "pong"})
 
-@app.get("/api/tasks")
-def api_get_tasks():
-    # optional filtering: /api/tasks?completed=true
-    all_tasks = get_tasks()
-    completed_q = request.args.get("completed")
-    if completed_q is not None:
-        comp = completed_q.lower() in ("1", "true", "yes")
-        filtered = [t for t in all_tasks if bool(t.get("completed")) == comp]
-        return jsonify({"ok": True, "tasks": filtered}), 200
-    return jsonify({"ok": True, "tasks": all_tasks}), 200
-
-@app.post("/api/tasks")
-def api_post_task():
-    data = request.get_json(silent=True) or {}
-    title = (data.get("title") or "").strip()
-    description = (data.get("description") or "").strip()
-    completed = bool(data.get("completed", False))
-
-    if not title:
-        return jsonify({"ok": False, "error": "title is required"}), 400
-    if not description:
-        return jsonify({"ok": False, "error": "description is required"}), 400
-
-    new_task = add_task({"title": title, "description": description, "completed": completed})
-    return jsonify({"ok": True, "task": new_task}), 201
-
-@app.get("/api/tasks/<task_id>")
-def api_get_task(task_id):
+# Serve OpenAPI YAML (ensure file exists at backend/static/openapi.yaml)
+@app.get("/openapi.yaml")
+def serve_openapi():
+    # Flask static_folder is backend/static so send_from_directory works
     try:
-        t = get_task(task_id)
-    except ValueError:
-        return jsonify({"ok": False, "error": "invalid id"}), 400
+        return send_from_directory(app.static_folder, "openapi.yaml")
+    except Exception:
+        return jsonify({"ok": False, "error": "openapi.yaml not found"}), 404
 
-    if not t:
-        return jsonify({"ok": False, "error": "task not found"}), 404
-    return jsonify({"ok": True, "task": t}), 200
+# Swagger UI setup: served at /docs
+SWAGGER_URL = "/docs"
+API_URL = "/openapi.yaml"  # relative to this app
+swaggerui_bp = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={"app_name": "Portility API (v1)"},
+)
+app.register_blueprint(swaggerui_bp, url_prefix=SWAGGER_URL)
 
-@app.put("/api/tasks/<task_id>")
-def api_put_task(task_id):
-    # parse JSON
-    data = request.get_json(silent=True)
-    if data is None:
-        return jsonify({"ok": False, "error": "invalid json"}), 400
+# Generic error handlers (return JSON)
+@app.errorhandler(400)
+def bad_request_error(error):
+    app.logger.debug("400 error: %s", error)
+    return jsonify({"ok": False, "error": "Bad request"}), 400
 
-    # optional validation: require at least one field
-    title = data.get("title")
-    description = data.get("description")
-    completed = data.get("completed")
+@app.errorhandler(404)
+def not_found_error(error):
+    app.logger.debug("404 error: %s", error)
+    return jsonify({"ok": False, "error": "Resource not found"}), 404
 
-    # build update dict only with allowed fields
-    update_fields = {}
-    if title is not None:
-        if not str(title).strip():
-            return jsonify({"ok": False, "error": "title cannot be empty"}), 400
-        update_fields["title"] = str(title).strip()
-    if description is not None:
-        if not str(description).strip():
-            return jsonify({"ok": False, "error": "description cannot be empty"}), 400
-        update_fields["description"] = str(description).strip()
-    if completed is not None:
-        update_fields["completed"] = bool(completed)
+@app.errorhandler(500)
+def server_error(error):
+    # Log the exception details
+    app.logger.exception("Internal server error: %s", error)
+    return jsonify({"ok": False, "error": "Internal Server Error"}), 500
 
-    if not update_fields:
-        return jsonify({"ok": False, "error": "no fields to update"}), 400
-
-    updated = update_task(task_id, update_fields)
-    if not updated:
-        return jsonify({"ok": False, "error": "task not found"}), 404
-
-    return jsonify({"ok": True, "task": updated}), 200
-
-@app.delete("/api/tasks/<task_id>")
-def api_delete_task(task_id):
-    removed = delete_task(task_id)
-    if not removed:
-        return jsonify({"ok": False, "error": "task not found"}), 404
-    # successful delete: 204 No Content is common
-    return jsonify({"ok": True, "deleted": removed}), 200
-    # or: return "", 204
+# Optional: simple root redirect /info
+@app.get("/")
+def root_info():
+    return jsonify({
+        "ok": True,
+        "msg": "Portility backend running",
+        "docs": "/docs",
+        "api_base": "/api/v1"
+    })
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    # configuration from environment
+    debug = os.getenv("FLASK_DEBUG", "1") == "1"
+    port = int(os.getenv("PORT", 5000))
+    # run dev server (use gunicorn for production)
+    app.run(host="0.0.0.0", port=port, debug=debug)

@@ -125,3 +125,43 @@ GET    http://127.0.0.1:5000/api/tasks
 POST   http://127.0.0.1:5000/api/tasks
 PUT    http://127.0.0.1:5000/api/tasks/1
 DELETE http://127.0.0.1:5000/api/tasks/1
+# Week 3 Day 3 — Error Handling, Validation & CORS (Portility API)
+
+**Goal:** Improve the Flask backend with robust error handling, validation, and CORS support.
+
+### ✅ Completed Tasks
+- Added error handlers for `404`, `400`, and `500`.
+- Validated incoming JSON and non-empty `title` fields.
+- Enabled **CORS** using `Flask-CORS` to allow frontend requests.
+- Tested all endpoints (`GET`, `POST`, `PUT`, `DELETE`) in **Postman** and frontend.
+- Implemented safe error responses with proper HTTP status codes.
+
+### 🧪 Tools Used
+- Flask + Flask-CORS  
+- Postman (for endpoint testing)  
+- React frontend (fetch API calls)
+
+### 🚀 Run Locally
+```bash
+# backend
+cd backend
+venv\Scripts\activate
+python app.py
+
+# frontend
+cd frontend
+npm run dev
+# Week 3 Day 4 — Docs & Versioning
+
+**Goal:** Add OpenAPI docs and version the API.
+
+**What I did**
+- Moved routes under `/api/v1` using Flask Blueprints.
+- Added `backend/static/openapi.yaml` (OpenAPI 3.0).
+- Served Swagger UI at `/docs` using `flask-swagger-ui`.
+- Tested locally and demonstrated running with Gunicorn.
+
+**How to run**
+1. Start Flask (dev): `python app.py`  
+2. Open docs: `http://127.0.0.1:5000/docs`  
+3. For multi-worker: `gunicorn -w 4 -b 0.0.0.0:8000 app:app`
