@@ -36,3 +36,35 @@
 2025-10-18 16:35:33,411 [INFO] PUT /api/v1/tasks/11 - from 127.0.0.1
 2025-10-18 16:35:33,444 [INFO] DELETE /api/v1/tasks/11 - from 127.0.0.1
 2025-10-18 16:35:33,480 [INFO] GET /api/v1/tasks/11 - from 127.0.0.1
+2025-10-18 16:39:12,819 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-18 16:39:12,819 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-18 16:39:12,833 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-18 16:39:12,833 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-18 16:39:14,213 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-18 16:39:14,213 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-18 16:39:14,236 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-18 16:39:14,236 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-18 16:39:22,236 [INFO] GET / - from 127.0.0.1
+2025-10-18 16:39:22,236 [INFO] GET / - from 127.0.0.1
+2025-10-18 16:39:30,678 [INFO] GET /docs/ - from 127.0.0.1
+2025-10-18 16:39:30,678 [INFO] GET /docs/ - from 127.0.0.1
+2025-10-18 16:39:31,047 [INFO] GET /docs/index.css - from 127.0.0.1
+2025-10-18 16:39:31,047 [INFO] GET /docs/index.css - from 127.0.0.1
+2025-10-18 16:39:31,057 [INFO] GET /docs/swagger-ui.css - from 127.0.0.1
+2025-10-18 16:39:31,057 [INFO] GET /docs/swagger-ui.css - from 127.0.0.1
+2025-10-18 16:39:31,058 [INFO] GET /docs/swagger-ui-bundle.js - from 127.0.0.1
+2025-10-18 16:39:31,058 [INFO] GET /docs/swagger-ui-bundle.js - from 127.0.0.1
+2025-10-18 16:39:31,067 [INFO] GET /docs/swagger-ui-standalone-preset.js - from 127.0.0.1
+2025-10-18 16:39:31,067 [INFO] GET /docs/swagger-ui-standalone-preset.js - from 127.0.0.1
+2025-10-18 16:39:35,058 [INFO] GET /openapi.yaml - from 127.0.0.1
+2025-10-18 16:39:35,058 [INFO] GET /openapi.yaml - from 127.0.0.1
+2025-10-18 16:39:35,159 [INFO] GET /docs/favicon-32x32.png - from 127.0.0.1
+2025-10-18 16:39:35,159 [INFO] GET /docs/favicon-32x32.png - from 127.0.0.1
+2025-10-18 16:39:42,461 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 16:39:42,461 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 16:39:42,470 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 16:39:42,470 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 16:39:42,485 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 16:39:42,485 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 16:39:42,496 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 16:39:42,496 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
