@@ -205,3 +205,16 @@ if (!data.ok) alert(data.error);
 1. **OpenAPI/Swagger** helps generate interactive API docs.
 2. Versioning helps avoid breaking existing clients.
 3. Cloud deployments use environment variables for URLs & API keys.
+# Week 3 Day 5 Documentation
+
+### Key Additions
+1. **Logging:** Implemented Flask `logging` for requests and errors.
+2. **Authentication:** Basic Bearer Token auth for protected routes.
+3. **Testing:** Added unit test using `pytest` for `/api/ping`.
+4. **Security:** Input validation, HTTPS, secret management discussed.
+5. **Monitoring:** Introduced error logging, health check, and alerting.
+
+### Reflection
+- Flask handles requests via WSGI pipeline → executes view function → returns JSON response.
+- All inputs validated and logged.
+- Errors logged to both console and file for easier debugging.

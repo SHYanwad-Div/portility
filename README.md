@@ -165,3 +165,21 @@ npm run dev
 1. Start Flask (dev): `python app.py`  
 2. Open docs: `http://127.0.0.1:5000/docs`  
 3. For multi-worker: `gunicorn -w 4 -b 0.0.0.0:8000 app:app`
+# Week 3 Day 5 — Reflection & Bonus
+
+## Overview
+This day focuses on API reflection, authentication, logging, and testing.
+
+## What Was Done
+- Added request logging with `logging` module.
+- Added simple Bearer Token authentication decorator.
+- Created basic unit tests using `pytest`.
+- Wrote reflections on:
+  - HTTP request–response cycle.
+  - Security best practices.
+  - Production error monitoring.
+
+## Test Commands
+```bash
+pytest -v
+curl -H "Authorization: Bearer supersecret123" http://127.0.0.1:5000/api/tasks
