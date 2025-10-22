@@ -1,8 +1,8 @@
 # backend/tasks/routes.py
 from flask import Blueprint, jsonify, request
 from werkzeug.exceptions import BadRequest
-from tasks_store import get_tasks, add_task, get_task, update_task, delete_task
-from app import require_token  # import token decorator
+from ..tasks_store_sql import get_tasks, add_task, get_task, update_task, delete_task
+from ..auth import require_token  # import token decorator
 
 bp = Blueprint("tasks", __name__, url_prefix="/api/v1/tasks")
 

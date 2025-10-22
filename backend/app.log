@@ -68,3 +68,36 @@
 2025-10-18 16:39:42,485 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
 2025-10-18 16:39:42,496 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
 2025-10-18 16:39:42,496 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,145 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,145 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,170 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,170 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,179 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,179 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,188 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-18 18:50:17,188 [INFO] GET /api/v1/tasks/ - from 127.0.0.1
+2025-10-19 11:20:24,655 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:20:24,655 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:20:24,668 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:20:24,668 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:20:52,508 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:20:52,508 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:20:52,534 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:20:52,534 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:21:29,071 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:21:29,071 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:21:29,094 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:21:29,094 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:21:57,475 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:21:57,475 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:21:57,496 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:21:57,496 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:22:00,655 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:22:00,655 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:22:00,669 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:22:00,669 [INFO] Registered tasks blueprint at /api/v1/tasks
+2025-10-19 11:23:27,470 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:23:27,470 [WARNING] Could not import/register tasks blueprint: cannot import name 'bp' from partially initialized module 'tasks.routes' (most likely due to a circular import) (C:\Users\dshan\portility\backend\tasks\routes.py)
+2025-10-19 11:23:27,501 [WARNING] Could not import/register tasks blueprint: attempted relative import with no known parent package
+2025-10-19 11:23:27,501 [WARNING] Could not import/register tasks blueprint: attempted relative import with no known parent package
+2025-10-19 19:03:59,964 [WARNING] Could not import/register tasks blueprint: attempted relative import with no known parent package

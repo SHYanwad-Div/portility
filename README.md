@@ -183,3 +183,26 @@ This day focuses on API reflection, authentication, logging, and testing.
 ```bash
 pytest -v
 curl -H "Authorization: Bearer supersecret123" http://127.0.0.1:5000/api/tasks
+# Week 4 Day 1 — SQL Basics & Schema Design
+
+### 🎯 Objective
+Design and create the SQL schema for storing tasks in a relational database.
+
+### 🧱 Table: `tasks`
+| Column | Type | Description |
+|---------|------|--------------|
+| id | INTEGER PRIMARY KEY | Task ID |
+| title | TEXT | Title of task |
+| description | TEXT | Task details |
+| status | TEXT | Pending, done, etc. |
+| due_date | TEXT | YYYY-MM-DD |
+| created_at | DATETIME | Created timestamp |
+| updated_at | DATETIME | Last update |
+
+### 📘 Key Learnings
+- Normalization avoids redundancy.
+- Use appropriate SQL types (`INTEGER`, `TEXT`, `DATE`).
+- Plan ahead for scalability — user & tags relations can be added later.
+
+### 🧩 Next
+Connect Flask backend to SQLite (Week 4 Day 2).

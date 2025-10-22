@@ -218,3 +218,18 @@ if (!data.ok) alert(data.error);
 - Flask handles requests via WSGI pipeline → executes view function → returns JSON response.
 - All inputs validated and logged.
 - Errors logged to both console and file for easier debugging.
+### Week 4 Day 1 — SQL Schema Design
+
+**Goal:** Design schema for tasks with normalized structure.
+
+**Schema:**
+```sql
+CREATE TABLE tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  description TEXT,
+  status TEXT DEFAULT 'pending',
+  due_date TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
