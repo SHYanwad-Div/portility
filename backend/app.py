@@ -12,8 +12,10 @@ import uuid
 # --- Load environment variables ---
 load_dotenv()
 
+
 # --- Create Flask app ---
 app = Flask(__name__, static_folder="static")
+
 
 # --- Database (SQLAlchemy) ---
 from .db import db
@@ -49,12 +51,16 @@ try:
 except Exception as e:
     app.logger.warning("Could not set up file logging: %s", e)
 
-# --- CORS Setup ---
+# --- CORS Setup (Fixed for local frontend) ---
 if CORS_ORIGINS:
     origins = [o.strip() for o in CORS_ORIGINS.split(",")]
-    CORS(app, origins=origins)
 else:
-    CORS(app)  # allow all (dev)
+    origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+
+CORS(
+    app
+)
+
 
 # --- Token Auth Decorator ---
 def require_token(f):

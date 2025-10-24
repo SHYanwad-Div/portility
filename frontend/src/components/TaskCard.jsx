@@ -1,48 +1,66 @@
-// src/components/TaskCard.jsx
+// frontend/src/components/TaskCard.jsx
 import React from "react";
-import { Paper, Typography, Box, IconButton } from "@mui/material";
+import { Card, CardContent, Typography, Box, IconButton, useTheme } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export default function TaskCard({ task = {}, onToggle, onDelete, onEdit }) {
-  const completed = Boolean(task.completed);
+export default function TaskCard({  title = "", description = "" }) {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+  
+
+  // Card bg + text colors responsive to theme
+  const cardSx = {
+    borderRadius: 2,
+    p: 1,
+    minHeight: 80,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    bgcolor: isDark ? "rgba(255,255,255,0.04)" : "#fff",
+    color: isDark ? "rgba(255,255,255,0.92)" : "rgba(0,0,0,0.87)",
+    boxShadow: isDark ? "0 6px 20px rgba(0,0,0,0.6)" : "0 6px 18px rgba(2,12,27,0.06)",
+    border: isDark ? "1px solid rgba(255,255,255,0.03)" : "1px solid rgba(0,0,0,0.06)",
+  };
 
   return (
-    <Paper
-      elevation={2}
-      sx={{
-        p: 2,
-        borderRadius: 2,
-        display: "flex",
-        flexDirection: "column",
-        gap: 1,
-      }}
-    >
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <Typography variant="h6" sx={{ textDecoration: completed ? "line-through" : "none" }} className="silkscreen">
-          {task.title}
+    <Card sx={cardSx} elevation={0}>
+      <CardContent sx={{ flex: 1, p: 2 }}>
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 600,
+            mb: 0.5,
+            color: "inherit", // uses card text color set above
+            fontFamily: "Silkscreen, Inter, Roboto, sans-serif",
+          }}
+        >
+          {title || "Untitled"}
         </Typography>
 
-        <Box>
-          <IconButton onClick={onToggle} title={completed ? "Mark incomplete" : "Mark complete"}>
-            {completed ? <CheckCircleOutlineIcon color="primary" /> : <RadioButtonUncheckedIcon />}
-          </IconButton>
+        <Typography
+          variant="body2"
+          sx={{
+            color: isDark ? "rgba(255,255,255,0.72)" : "rgba(0,0,0,0.6)",
+            fontSize: "0.95rem",
+          }}
+        >
+          {description || "No description"}
+        </Typography>
+      </CardContent>
 
-          <IconButton onClick={() => onEdit && onEdit(task)} title="Edit">
-            <EditIcon />
-          </IconButton>
-
-          <IconButton onClick={onDelete} title="Delete">
-            <DeleteIcon />
-          </IconButton>
-        </Box>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, pr: 1 }}>
+        <IconButton size="small" aria-label="mark complete">
+          <CheckCircleOutlineIcon sx={{ color: isDark ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.54)" }} />
+        </IconButton>
+        <IconButton size="small" aria-label="edit">
+          <EditIcon sx={{ color: isDark ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.54)" }} />
+        </IconButton>
+        <IconButton size="small" aria-label="delete">
+          <DeleteOutlineIcon sx={{ color: isDark ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.54)" }} />
+        </IconButton>
       </Box>
-
-      <Typography variant="body2" sx={{ color: "text.secondary" }}>
-        {task.description}
-      </Typography>
-    </Paper>
+    </Card>
   );
 }

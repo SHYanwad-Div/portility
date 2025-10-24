@@ -1,3 +1,4 @@
+// frontend/src/components/Footer.jsx
 import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 
@@ -10,20 +11,17 @@ export default function Footer() {
       className="app-footer"
       sx={{
         mt: 4,
-        // make footer visually stronger and match the header in light mode
-        borderTop: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.10)",
-        background: isDark
-          ? "linear-gradient(180deg, #00161d, #002b36)"
-          : "linear-gradient(90deg, #00bcd4 0%, #7beeff 100%)",
         py: 2,
-        px: 2,
+        borderTop: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(0,0,0,0.06)",
+        bgcolor: isDark ? "transparent" : "transparent",
       }}
     >
       <Typography
         variant="body2"
         className="silkscreen"
         sx={{
-          color: isDark ? "#7beeff" : "#002a34", // dark text in light mode to match header
+          fontFamily: "Silkscreen, Inter, Roboto, sans-serif",
+          color: isDark ? "#7beeff" : "#00383f", // stronger color in light mode
           letterSpacing: "0.5px",
           textAlign: "center",
         }}

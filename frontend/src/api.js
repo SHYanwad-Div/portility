@@ -1,6 +1,6 @@
-// src/api.js
-const API_BASE = "http://127.0.0.1:5000/api/v1";
-const API_TOKEN = "dev-token"; // dev only — load from config in prod
+// frontend/src/api.js
+const API_BASE = "http://127.0.0.1:5000/api/v1/tasks/";
+const API_TOKEN = "dev-token";
 
 function headers(withAuth = false) {
   const h = { "Content-Type": "application/json" };
@@ -8,16 +8,10 @@ function headers(withAuth = false) {
   return h;
 }
 
-// helper to parse JSON safely
 async function safeJson(res) {
-  try {
-    return await res.json();
-  } catch {
-    return null;
-  }
+  try { return await res.json(); } catch { return null; }
 }
 
-// GET all tasks
 export async function getTasks() {
   try {
     const res = await fetch(`${API_BASE}/tasks`);
@@ -32,15 +26,17 @@ export async function getTasks() {
   }
 }
 
-// POST create new task (requires token)
 export async function addTask(task) {
   try {
+    console.log("addTask: sending", task);
     const res = await fetch(`${API_BASE}/tasks`, {
       method: "POST",
       headers: headers(true),
       body: JSON.stringify(task),
     });
+    console.log("addTask: raw response", res.status, res.ok);
     const data = await safeJson(res);
+    console.log("addTask: parsed data", data);
     if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
     return data?.task || null;
   } catch (err) {
@@ -49,7 +45,6 @@ export async function addTask(task) {
   }
 }
 
-// PUT update task (requires token)
 export async function updateTask(id, payload) {
   try {
     const res = await fetch(`${API_BASE}/tasks/${id}`, {
@@ -57,40 +52,26 @@ export async function updateTask(id, payload) {
       headers: headers(true),
       body: JSON.stringify(payload),
     });
-    const result = await safeJson(res);
-    if (!res.ok) throw new Error(result?.error || `HTTP ${res.status}`);
-    return result?.task || null;
+    const data = await safeJson(res);
+    if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+    return data?.task || null;
   } catch (err) {
     console.error("updateTask error:", err);
     return null;
   }
 }
 
-// DELETE task (requires token)
 export async function deleteTask(id) {
   try {
     const res = await fetch(`${API_BASE}/tasks/${id}`, {
       method: "DELETE",
       headers: headers(true),
     });
-    const result = await safeJson(res);
-    if (!res.ok) throw new Error(result?.error || `HTTP ${res.status}`);
-    return result?.ok ?? true;
+    const data = await safeJson(res);
+    if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+    return data?.ok ?? true;
   } catch (err) {
     console.error("deleteTask error:", err);
     return false;
-  }
-}
-
-// Ping backend health
-export async function pingBackend() {
-  try {
-    // ping endpoint is at /api/ping (root of server)
-    const baseRoot = API_BASE.replace("/api/v1", "");
-    const res = await fetch(`${baseRoot}/api/ping`);
-    const data = await safeJson(res);
-    return data?.ok ? "Backend reachable" : "Ping failed";
-  } catch {
-    return "Backend not reachable";
   }
 }
